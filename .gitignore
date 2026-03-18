@@ -1,0 +1,16 @@
+target/
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Env/secrets
+.env
+*.local
+
