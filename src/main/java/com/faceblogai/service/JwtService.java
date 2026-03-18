@@ -9,6 +9,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import jakarta.annotation.PostConstruct;
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -21,6 +22,24 @@ public class JwtService {
 
     public JwtService(@Value("${jwt.secret-base64:}") String secretKeyBase64) {
         this.secretKeyBase64 = secretKeyBase64;
+    }
+
+    @PostConstruct
+    void validarConfiguracao() {
+        if (secretKeyBase64 == null || secretKeyBase64.isBlank()) {
+            throw new IllegalStateException(
+                    "JWT_SECRET_BASE64 é obrigatório. Gera um com: openssl rand -base64 32");
+        }
+
+        // Validação extra para falhar cedo caso o secret esteja mal configurado.
+        try {
+            byte[] keyBytes = Decoders.BASE64.decode(secretKeyBase64);
+            Keys.hmacShaKeyFor(keyBytes); // garante tamanho compatível com HS256
+        } catch (Exception ex) {
+            throw new IllegalStateException(
+                    "JWT_SECRET_BASE64 inválido (não é base64 válido ou tamanho incompatível).",
+                    ex);
+        }
     }
 
     private Key signingKey() {

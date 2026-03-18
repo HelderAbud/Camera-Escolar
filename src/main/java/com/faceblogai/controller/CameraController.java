@@ -1,11 +1,13 @@
 package com.faceblogai.controller;
 
-import com.faceblogai.domain.Camera;
+import com.faceblogai.dto.CameraResponse;
 import com.faceblogai.service.CameraService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,34 +24,42 @@ public class CameraController {
     }
 
     @GetMapping("/escola/{escolaId}")
-    public List<Camera> listarPorEscola(@PathVariable Long escolaId) {
-        return cameraService.listarPorEscola(escolaId);
+    public List<CameraResponse> listarPorEscola(@PathVariable Long escolaId) {
+        return cameraService.listarPorEscola(escolaId)
+                .stream()
+                .map(CameraResponse::from)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Camera> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<CameraResponse> buscarPorId(@PathVariable Long id) {
         return cameraService.buscarPorId(id)
+                .map(CameraResponse::from)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PostMapping
-    public ResponseEntity<Camera> criar(@Valid @RequestBody CameraRequest request) {
-        Camera camera =
+    public ResponseEntity<CameraResponse> criar(@Valid @RequestBody CameraRequest request) {
+        var camera =
                 cameraService.criar(request.escolaId(), request.nome(), request.endpointUrl());
         return ResponseEntity.created(URI.create("/api/cameras/" + camera.getId()))
-                .body(camera);
+                .body(CameraResponse.from(camera));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PutMapping("/{id}")
-    public ResponseEntity<Camera> atualizar(
+    public ResponseEntity<CameraResponse> atualizar(
             @PathVariable Long id, @Valid @RequestBody CameraUpdateRequest request) {
         return cameraService
                 .atualizar(id, request.nome(), request.endpointUrl(), request.ativo())
+                .map(CameraResponse::from)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         cameraService.deletar(id);
@@ -59,10 +69,18 @@ public class CameraController {
     public record CameraRequest(
             @NotNull Long escolaId,
             @NotBlank String nome,
+            @Pattern(
+                    regexp = "^(rtsp|rtmp|http|https)://.+",
+                    message = "endpointUrl deve ser uma URL válida (rtsp, rtmp, http ou https)"
+            )
             @NotBlank String endpointUrl) {}
 
     public record CameraUpdateRequest(
             @NotBlank String nome,
+            @Pattern(
+                    regexp = "^(rtsp|rtmp|http|https)://.+",
+                    message = "endpointUrl deve ser uma URL válida (rtsp, rtmp, http ou https)"
+            )
             @NotBlank String endpointUrl,
             @NotNull Boolean ativo) {}
 }

@@ -5,6 +5,7 @@ import com.faceblogai.domain.Escola;
 import com.faceblogai.repository.CameraRepository;
 import com.faceblogai.repository.EscolaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class CameraService {
         return cameraRepository.findById(id);
     }
 
+    @Transactional
     public Camera criar(Long escolaId, String nome, String endpointUrl) {
         Escola escola = escolaRepository.findById(escolaId)
                 .orElseThrow(() -> new IllegalArgumentException("Escola não encontrada"));
@@ -37,6 +39,7 @@ public class CameraService {
         return cameraRepository.save(camera);
     }
 
+    @Transactional
     public Optional<Camera> atualizar(Long id, String nome, String endpointUrl, boolean ativo) {
         return cameraRepository
                 .findById(id)
@@ -48,6 +51,7 @@ public class CameraService {
                 });
     }
 
+    @Transactional
     public void deletar(Long id) {
         cameraRepository.deleteById(id);
     }

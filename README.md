@@ -27,23 +27,50 @@ Projeto backend em Spring Boot para monitoramento de câmeras em ambiente escola
   - `WORKFLOW.md`
 
 ## Como rodar (local)
+### Pré-requisitos
+- Java 21
+- Maven 3.9+
+- Docker (para o banco)
 
-1. Instale Java 21 e Maven.
-2. Na pasta `face-log-ai`:
+### 1. Subir o banco
+```bash
+docker compose up -d
+```
 
-   ```bash
-   mvn spring-boot:run
-   ```
+### 2. Configurar o JWT secret
+```bash
+# Gerar um secret seguro:
+openssl rand -base64 32
 
-3. A API ficará exposta em `http://localhost:8080`.
+# Exportar antes de rodar:
+export JWT_SECRET_BASE64=<valor gerado acima>
+```
 
-## Próximos passos sugeridos
+### 3. Rodar a aplicação
+```bash
+mvn spring-boot:run
+```
 
-- Configurar banco real (MySQL/PostgreSQL) e Flyway.
-- Definir backlog funcional em `docs/BACKLOG.md`.
-- Criar endpoint de healthcheck e documentação OpenAPI.
-- Evoluir para módulos de:
-  - gestão de alunos / turmas
-  - registro de eventos vindos das câmeras
-  - relatórios para coordenação e responsáveis
+### 4. Acessar
+- API: http://localhost:8080
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- Health: http://localhost:8080/health
+
+### Login inicial (seed de desenvolvimento)
+```json
+POST /api/auth/login
+{ "email": "admin@facelogai.local", "password": "admin123" }
+```
+
+## Perfis e permissões
+
+| Endpoint | ADMIN | COORDENACAO | PROFESSOR |
+|----------|-------|-------------|-----------|
+| GET (leitura geral) | ✓ | ✓ | ✓ |
+| POST /api/escolas | ✓ | — | — |
+| POST /api/cameras | ✓ | ✓ | — |
+| DELETE /api/cameras | ✓ | — | — |
+| DELETE /api/alunos | ✓ | ✓ | — |
+| POST /api/turmas | ✓ | ✓ | — |
+| DELETE /api/turmas | ✓ | — | — |
 

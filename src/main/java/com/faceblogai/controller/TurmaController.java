@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -38,6 +39,7 @@ public class TurmaController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PostMapping
     public ResponseEntity<Turma> criar(@Valid @RequestBody TurmaRequest request) {
         Turma turma = turmaService.criar(request.escolaId(), request.nome(), request.serie());
@@ -45,6 +47,7 @@ public class TurmaController {
                 .body(turma);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PutMapping("/{id}")
     public ResponseEntity<Turma> atualizar(
             @PathVariable Long id, @Valid @RequestBody TurmaUpdateRequest request) {
@@ -53,6 +56,7 @@ public class TurmaController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         turmaService.deletar(id);

@@ -3,6 +3,7 @@ package com.faceblogai.service;
 import com.faceblogai.domain.*;
 import com.faceblogai.repository.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class VinculoService {
         this.cameraTurmaRepository = cameraTurmaRepository;
     }
 
+    @Transactional
     public TurmaAluno vincularAlunoEmTurma(Long turmaId, Long alunoId) {
         Turma turma = turmaRepository.findById(turmaId)
                 .orElseThrow(() -> new IllegalArgumentException("Turma não encontrada"));
@@ -39,6 +41,7 @@ public class VinculoService {
                 .orElseGet(() -> turmaAlunoRepository.save(new TurmaAluno(turma, aluno)));
     }
 
+    @Transactional
     public void desvincularAlunoDeTurma(Long turmaId, Long alunoId) {
         Turma turma = turmaRepository.findById(turmaId)
                 .orElseThrow(() -> new IllegalArgumentException("Turma não encontrada"));
@@ -56,6 +59,7 @@ public class VinculoService {
         return turmaAlunoRepository.findByTurma(turma);
     }
 
+    @Transactional
     public CameraTurma vincularCameraEmTurma(Long turmaId, Long cameraId) {
         Turma turma = turmaRepository.findById(turmaId)
                 .orElseThrow(() -> new IllegalArgumentException("Turma não encontrada"));
@@ -67,6 +71,7 @@ public class VinculoService {
                 .orElseGet(() -> cameraTurmaRepository.save(new CameraTurma(camera, turma)));
     }
 
+    @Transactional
     public void desvincularCameraDeTurma(Long turmaId, Long cameraId) {
         Turma turma = turmaRepository.findById(turmaId)
                 .orElseThrow(() -> new IllegalArgumentException("Turma não encontrada"));

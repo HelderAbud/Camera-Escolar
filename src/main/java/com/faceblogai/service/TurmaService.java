@@ -5,6 +5,7 @@ import com.faceblogai.domain.Turma;
 import com.faceblogai.repository.EscolaRepository;
 import com.faceblogai.repository.TurmaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class TurmaService {
         return turmaRepository.findById(id);
     }
 
+    @Transactional
     public Turma criar(Long escolaId, String nome, String serie) {
         Escola escola = escolaRepository.findById(escolaId)
                 .orElseThrow(() -> new IllegalArgumentException("Escola não encontrada"));
@@ -37,6 +39,7 @@ public class TurmaService {
         return turmaRepository.save(turma);
     }
 
+    @Transactional
     public Optional<Turma> atualizar(Long id, String nome, String serie) {
         return turmaRepository
                 .findById(id)
@@ -47,6 +50,7 @@ public class TurmaService {
                 });
     }
 
+    @Transactional
     public void deletar(Long id) {
         turmaRepository.deleteById(id);
     }
