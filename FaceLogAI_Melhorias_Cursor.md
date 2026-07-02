@@ -315,9 +315,9 @@ class AuthServiceTest {
     void autenticaComCredenciaisValidas() {
         var user = new Usuario("Admin", "a@a.com", "hash", PerfilUsuario.ADMIN);
         when(repo.findByEmail("a@a.com")).thenReturn(Optional.of(user));
-        when(encoder.matches("senha123", "hash")).thenReturn(true);
+        when(encoder.matches("<senha-de-teste>", "hash")).thenReturn(true);
 
-        assertThat(authService.authenticate("a@a.com", "senha123")).isPresent();
+        assertThat(authService.authenticate("a@a.com", "<senha-de-teste>")).isPresent();
     }
 
     @Test
@@ -414,7 +414,7 @@ class AuthControllerIT {
         mvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
-                    {"email":"admin@facelogai.local","password":"admin123"}
+                    {"email":"admin@facelogai.local","password":"<senha-de-teste-configurada>"}
                     """))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.token").isNotEmpty())
@@ -550,8 +550,8 @@ services:
     environment:
       MYSQL_DATABASE: facelogai
       MYSQL_USER: facelogai
-      MYSQL_PASSWORD: facelogai
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Defina MYSQL_PASSWORD no .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Defina MYSQL_ROOT_PASSWORD no .env}
     ports:
       - "3306:3306"
     volumes:

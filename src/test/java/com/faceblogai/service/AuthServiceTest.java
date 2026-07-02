@@ -31,9 +31,9 @@ class AuthServiceTest {
     void autenticaComCredenciaisValidas() {
         var user = new Usuario("Admin", "a@a.com", "hash", PerfilUsuario.ADMIN);
         when(repo.findByEmail("a@a.com")).thenReturn(Optional.of(user));
-        when(encoder.matches("senha123", "hash")).thenReturn(true);
+        when(encoder.matches("TestOnly-AuthService-Password!", "hash")).thenReturn(true);
 
-        assertThat(authService.authenticate("a@a.com", "senha123")).isPresent();
+        assertThat(authService.authenticate("a@a.com", "TestOnly-AuthService-Password!")).isPresent();
     }
 
     @Test

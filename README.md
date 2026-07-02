@@ -1,70 +1,80 @@
-# FaceLogAI — Monitoramento para Câmera Escolar
+# FaceLogAI — Sistema de apoio a monitoramento escolar
 
-Projeto backend em Spring Boot para monitoramento de câmeras em ambiente escolar (FaceLogAI), organizado no padrão dos seus outros projetos Java.
+API backend para **gestão de contexto escolar** ligada a câmeras e controle de acesso a dados (escolas, turmas, alunos, câmeras), com autenticação por perfil. Posicionamento: **segurança e organização institucional**, com base para evolução (eventos, presença, visão computacional — ver roadmap).
+
+**Repositório público:** https://github.com/HelderAbud/Camera-Escolar
+
+---
+
+## Resumo para LinkedIn / vitrine (copiar)
+
+**GitHub:** https://github.com/HelderAbud/Camera-Escolar
+
+**Sistema de Monitoramento Escolar (FaceLogAI)**
+
+Projeto com foco em monitoramento e controle de ambiente escolar, com potencial para aplicação em segurança e gestão de presença.
+
+**Tecnologias:** Java 21, Spring Boot 3, Spring Web, Spring Security, Spring Data JPA, Flyway (migrações de banco), JWT (autenticação), Springdoc OpenAPI (Swagger UI)  
+
+**Destaques:**
+
+- Aplicação voltada para cenário real
+- Base para evolução com automações e inteligência
+- API REST com autenticação por perfis (ex.: ADMIN, COORDENAÇÃO, PROFESSOR)
+
+---
+
+## Visão rápida (portfólio / recrutador)
+
+| Item | Valor |
+|------|--------|
+| **Problema que resolve** | Centralizar dados escolares (escolas, turmas, alunos, câmeras) com acesso por perfil. |
+| **Demo / deploy** | [PREENCHER_URL_SWAGGER_OU_APP_OU_"em breve"] |
+| **Repositório** | `https://github.com/HelderAbud/Camera-Escolar` |
+
+---
 
 ## Stack principal
 
-- Java 21
-- Spring Boot 3
-- Spring Web, Security, Data JPA
-- Flyway (migrações de banco)
-- JWT (auth)
-- Springdoc OpenAPI (Swagger UI)
+| Camada | Tecnologia |
+|--------|------------|
+| Linguagem | Java 21 |
+| Framework | Spring Boot 3 |
+| API | Spring Web (REST), Springdoc OpenAPI (Swagger UI) |
+| Segurança | Spring Security, JWT |
+| Persistência | Spring Data JPA, Flyway |
+| Build | Maven |
 
-## Estrutura de pastas (backend)
+**Bibliotecas ou integrações adicionais:** ver `pom.xml` (ex.: actuator, logstash encoder); complete aqui se adicionares integrações novas.
 
-- `src/main/java/com/faceblogai`
-  - `controller/`
-  - `service/`
-  - `model/`
-  - `repository/`
-  - `config/`
-- `src/main/resources`
-  - `templates/`
-  - `static/`
-- `docs/`
-  - `BACKLOG.md`
-  - `WORKFLOW.md`
+---
 
-## Como rodar (local)
-### Pré-requisitos
-- Java 21
-- Maven 3.9+
-- Docker (para o banco)
+## Arquitetura
 
-### 1. Subir o banco
-```bash
-docker compose up -d
+Padrão em camadas: **Controller → Service → Repository**, entidades em `model/`, configuração em `config/`.
+
+```text
+src/main/java/com/faceblogai/
+├── controller/
+├── service/
+├── model/
+├── repository/
+└── config/
 ```
 
-### 2. Configurar o JWT secret
-```bash
-# Gerar um secret seguro:
-openssl rand -base64 32
+Diagrama ou print da arquitetura (opcional): coloque em `docs/` e link aqui.
 
-# Exportar antes de rodar:
-export JWT_SECRET_BASE64=<valor gerado acima>
-```
+---
 
-### 3. Rodar a aplicação
-```bash
-mvn spring-boot:run
-```
+## Funcionalidades (estado atual)
 
-### 4. Acessar
-- API: http://localhost:8080
-- Swagger UI: http://localhost:8080/swagger-ui.html
-- Health: http://localhost:8080/health
+- Autenticação JWT e perfis (ex.: ADMIN, COORDENAÇÃO, PROFESSOR) com matriz de permissões documentada abaixo.
+- Endpoints de domínio escolar: escolas, câmeras, turmas, alunos (conforme implementado no backend).
+- Documentação interativa: Swagger UI.
 
-### Login inicial (seed de desenvolvimento)
-```json
-POST /api/auth/login
-{ "email": "admin@facelogai.local", "password": "admin123" }
-```
+### Matriz de permissões (resumo)
 
-## Perfis e permissões
-
-| Endpoint | ADMIN | COORDENACAO | PROFESSOR |
+| Endpoint | ADMIN | COORDENAÇÃO | PROFESSOR |
 |----------|-------|-------------|-----------|
 | GET (leitura geral) | ✓ | ✓ | ✓ |
 | POST /api/escolas | ✓ | — | — |
@@ -74,3 +84,83 @@ POST /api/auth/login
 | POST /api/turmas | ✓ | ✓ | — |
 | DELETE /api/turmas | ✓ | — | — |
 
+---
+
+## Como rodar (local)
+
+### Pré-requisitos
+
+- Java 21
+- Maven 3.9+
+- Docker (para o banco)
+
+### Passos
+
+```bash
+cp .env.example .env
+# Edite o .env com senhas locais antes de subir o banco.
+```
+
+```bash
+docker compose up -d
+```
+
+```bash
+# Gerar secret seguro:
+openssl rand -base64 32
+export JWT_SECRET_BASE64=[VALOR_GERADO]
+
+# Opcional para ambiente local/dev: criar admin inicial em runtime
+export FACELOGAI_SEED_ADMIN_ENABLED=true
+export FACELOGAI_SEED_ADMIN_EMAIL=admin@facelogai.local
+export FACELOGAI_SEED_ADMIN_PASSWORD=[SENHA_LOCAL_FORTE]
+export DB_PASSWORD=[SENHA_MYSQL_LOCAL]
+```
+
+```bash
+mvn spring-boot:run
+```
+
+- **API:** http://localhost:8080  
+- **Swagger UI:** http://localhost:8080/swagger-ui.html  
+- **Health:** http://localhost:8080/health  
+
+### Login de desenvolvimento
+
+`POST /api/auth/login`
+
+```json
+{ "email": "admin@facelogai.local", "password": "[SENHA_LOCAL_FORTE]" }
+```
+
+O seed admin fica desabilitado por padrão. Habilite apenas em ambiente local/dev com `FACELOGAI_SEED_ADMIN_ENABLED=true` e defina a senha por variável de ambiente. Não use senha padrão em deploy.
+
+---
+
+## Documentação adicional
+
+- [docs/BACKLOG.md](docs/BACKLOG.md)
+- [docs/WORKFLOW.md](docs/WORKFLOW.md)
+
+---
+
+## Screenshots (opcional)
+
+| Tela / Swagger | Ficheiro sugerido |
+|----------------|-------------------|
+| Swagger UI | `docs/screenshots/swagger.png` |
+
+---
+
+## Roadmap (ideias alinhadas ao mercado)
+
+- [ ] Notificações de eventos
+- [ ] Registo de presença integrado ao fluxo escolar
+- [ ] Integração com IA / visão computacional (quando for objetivo do projeto)
+- [ ] Deploy (ex.: Render, Fly.io) — adicionar URL aqui e no topo quando existir
+
+---
+
+## Licença
+
+Definir no repositório (ex.: MIT) ou remover esta secção se não aplicável.

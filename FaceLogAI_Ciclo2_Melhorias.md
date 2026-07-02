@@ -141,7 +141,7 @@ mvn spring-boot:run
 ### Login inicial (seed de desenvolvimento)
 ```json
 POST /api/auth/login
-{ "email": "admin@facelogai.local", "password": "admin123" }
+{ "email": "admin@facelogai.local", "password": "<senha-local-forte>" }
 ```
 
 ## Perfis e permissões
@@ -278,7 +278,7 @@ class CameraControllerIT {
         String resp = mockMvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
-                    {"email":"admin@facelogai.local","password":"admin123"}
+                    {"email":"admin@facelogai.local","password":"<senha-de-teste-configurada>"}
                     """))
             .andReturn().getResponse().getContentAsString();
         // Extrai o token do JSON retornado
@@ -349,7 +349,7 @@ class EventoMonitoramentoControllerIT {
         String token = mockMvc.perform(post("/api/auth/login")
                 .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
                 .content("""
-                    {"email":"admin@facelogai.local","password":"admin123"}
+                    {"email":"admin@facelogai.local","password":"<senha-de-teste-configurada>"}
                     """))
             .andReturn().getResponse().getContentAsString()
             .replaceAll(".*\"token\":\"([^\"]+)\".*", "$1");
