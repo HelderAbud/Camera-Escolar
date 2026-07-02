@@ -1,0 +1,17 @@
+---
+description: Fluxo Rheyder Method para trabalhar no FaceLogAI
+alwaysApply: true
+---
+
+# Rheyder Method - FaceLogAI
+
+- Antes de executar, classifique a tarefa como `Hotfix`, `Complex`, `Normal` ou `Simple`.
+- Use `Simple` apenas para mudanca pequena, localizada, sem contrato novo e sem dado sensivel.
+- Use `Normal` para regra de negocio, endpoint, documento importante, plano ou ambiguidade moderada.
+- Use `Complex` para autenticacao/autorizacao, banco, imagens/videos, dados escolares sensiveis, integracao externa, arquitetura ou alto custo de erro.
+- Use `Hotfix` somente para operacao real quebrada/degradada; aplique patch minimo e valide o sintoma.
+- Tarefa nao trivial exige brainstorming curto, Plan Mode e plano aprovado antes de editar.
+- Planos relevantes devem ficar em `.cursor/plans/` com nome `plan-YYYY-MM-DD-assunto.md`.
+- Trabalhe em fatias pequenas e verificaveis; nao misture refactor amplo com entrega funcional.
+- Se mudar contrato publico, schema, seguranca ou dado sensivel, atualize o artefato correto e peca aprovacao explicita.
+- Nunca commitar, pushar ou abrir PR sem pedido explicito do usuario.

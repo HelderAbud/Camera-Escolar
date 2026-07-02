@@ -1,0 +1,15 @@
+---
+description: Segurança e privacidade para dados escolares no FaceLogAI
+alwaysApply: true
+---
+
+# Segurança E Dados Escolares
+
+- Trate dados de alunos, usuarios, escolas, imagens, videos, cameras e eventos como sensiveis.
+- Nunca commitar `.env`, secrets JWT, dumps de banco, exports reais, imagens reais, videos reais, uploads sensiveis ou dados privados de alunos.
+- Exemplos publicos devem usar dados fake, minimos e sem identificadores reais.
+- Antes de usar IA com dados do projeto, mascarar nomes reais, emails, documentos, IDs externos e qualquer identificador pessoal.
+- Reconhecimento facial, biometria, camera real, retencao de imagem/video ou integracao externa sao trilha `Complex` e exigem aprovacao humana.
+- Nao criar automacao de coleta, scraping, vigilancia ou envio de imagens sem contrato minimo escrito e revisao de privacidade.
+- JWT e credenciais devem vir de variaveis de ambiente; nao adicionar segredo real ao codigo ou documentacao.
+- Antes de finalizar, revisar diff para garantir ausencia de dado sensivel.

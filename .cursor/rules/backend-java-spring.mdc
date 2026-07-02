@@ -1,0 +1,17 @@
+---
+description: Convencoes backend Java Spring do FaceLogAI
+globs: **/*.java,**/*.properties,**/*.xml,**/*.sql
+alwaysApply: false
+---
+
+# Backend Java Spring
+
+- Stack atual: Java 21, Spring Boot 3.2, Maven, Spring Web, Spring Security, JWT, Spring Data JPA, Flyway, MySQL dev e H2 test.
+- Controllers devem permanecer finos; regra de negocio fica em `service` e dominio.
+- Repositories devem ser interfaces de acesso a dados, sem regra de negocio.
+- Nao exponha entidades JPA diretamente em novos contratos; use DTOs para request/response.
+- Mudanca de schema exige nova migration em `src/main/resources/db/migration/`; nunca edite migration antiga ja aplicada.
+- Preservar contratos REST existentes salvo aprovacao explicita.
+- Endpoints novos ou alterados devem estar coerentes com Swagger/springdoc.
+- Segurança deve ser checada em `SecurityConfig`, filtros JWT e testes de autorizacao quando a rota for sensivel.
+- Evite abstracoes novas sem beneficio claro para a tarefa.

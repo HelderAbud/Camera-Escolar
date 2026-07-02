@@ -1,0 +1,16 @@
+---
+description: Politica de testes e validacao do FaceLogAI
+globs: **/*.java,**/*.sql,**/*.properties,**/pom.xml
+alwaysApply: false
+---
+
+# Testing
+
+- Nova regra de negocio deve incluir teste unitario ou de integracao.
+- Bugfix tecnico deve ter teste de regressao quando viavel.
+- Mudanca em controller/security deve considerar teste de integracao com Spring Security.
+- Mudanca em service deve considerar teste unitario com cenarios de sucesso e erro.
+- Para schema/Flyway, validar consistencia entre migration, entidade JPA e dados de teste.
+- Comando padrao de validacao: `mvn clean test`.
+- Se testes nao puderem ser executados, explique motivo, risco residual e validacao alternativa.
+- Nao declarar tarefa concluida com teste quebrado.
