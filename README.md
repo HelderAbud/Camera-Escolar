@@ -166,4 +166,4 @@ O seed admin fica desabilitado por padrão. Habilite apenas em ambiente local/de
 
 ## Licença
 
-Definir no repositório (ex.: MIT) ou remover esta secção se não aplicável.
+Distribuído sob a licença [MIT](LICENSE). Copyright (c) 2026 Helder Abud.
