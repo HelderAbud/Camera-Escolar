@@ -10,14 +10,14 @@ Motivo: a tarefa cria base operacional persistente para o projeto, sem alterar c
 
 ## Objetivo
 
-Organizar o FaceLogAI para trabalhar com Rheyder Method v1.2 e Superpowers Cursor Playbook, deixando contexto, regras e fluxo de planos disponiveis dentro do repositorio.
+Organizar o FaceLogAI para trabalhar com Helder Method v1.2 e Superpowers Cursor Playbook, deixando contexto, regras e fluxo de planos disponiveis dentro do repositorio.
 
 ## Escopo
 
 Arquivos previstos:
 
 - `AGENTS.md`
-- `.cursor/rules/rheyder-method.mdc`
+- `.cursor/rules/helder-method.mdc`
 - `.cursor/rules/backend-java-spring.mdc`
 - `.cursor/rules/testing.mdc`
 - `.cursor/rules/security-school-data.mdc`
@@ -50,4 +50,4 @@ Arquivos previstos:
 
 ## Criterio De Pronto
 
-A base Superpowers/Rheyder estara pronta quando o projeto tiver `AGENTS.md`, regras persistentes, pasta de planos documentada e diff limitado aos artefatos operacionais aprovados.
+A base Superpowers/Helder estara pronta quando o projeto tiver `AGENTS.md`, regras persistentes, pasta de planos documentada e diff limitado aos artefatos operacionais aprovados.
