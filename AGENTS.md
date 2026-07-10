@@ -1,6 +1,6 @@
 # AGENTS.md - FaceLogAI
 
-Base operacional alinhada ao Rheyder Method v1.2 e ao Superpowers Cursor Playbook: triagem por risco, plano antes de tarefas relevantes, fatias pequenas, validacao objetiva e gate humano em seguranca, dados escolares e mudancas de contrato.
+Base operacional alinhada ao Helder Method v1.2 e ao Superpowers Cursor Playbook: triagem por risco, plano antes de tarefas relevantes, fatias pequenas, validacao objetiva e gate humano em seguranca, dados escolares e mudancas de contrato.
 
 ## Visao Geral
 
@@ -22,7 +22,7 @@ Base operacional alinhada ao Rheyder Method v1.2 e ao Superpowers Cursor Playboo
 
 Antes de considerar o servico pronto, valide pelo menos testes ou smoke check coerente com a mudanca.
 
-## Triagem Rheyder
+## Triagem Helder
 
 - `Simple`: ajuste pequeno, localizado, sem contrato publico novo e sem dado sensivel.
 - `Normal`: documentacao relevante, regra de negocio, endpoint, fluxo, plano ou ambiguidade moderada.

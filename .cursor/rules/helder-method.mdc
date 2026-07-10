@@ -1,9 +1,9 @@
 ---
-description: Fluxo Rheyder Method para trabalhar no FaceLogAI
+description: Fluxo Helder Method para trabalhar no FaceLogAI
 alwaysApply: true
 ---
 
-# Rheyder Method - FaceLogAI
+# Helder Method - FaceLogAI
 
 - Antes de executar, classifique a tarefa como `Hotfix`, `Complex`, `Normal` ou `Simple`.
 - Use `Simple` apenas para mudanca pequena, localizada, sem contrato novo e sem dado sensivel.
