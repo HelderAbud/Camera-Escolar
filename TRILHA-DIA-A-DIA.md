@@ -69,11 +69,13 @@
 **Trilha:** Simple
 
 **Tarefas**
-- [ ] Substituir `[PREENCHER_URL_SWAGGER_OU_APP_OU_"em breve"]` por URL real ou *"Demo: em breve — ver Dia 8"*
-- [ ] Revisar matriz de permissões vs código atual
-- [ ] Link para [`docs/BACKLOG.md`](docs/BACKLOG.md) com status B2 ✅
+- [x] Substituir `[PREENCHER_URL_SWAGGER_OU_APP_OU_"em breve"]` por URL real ou *"Demo: em breve — ver Dia 8"*
+- [x] Revisar matriz de permissões vs código atual
+- [x] Link para [`docs/BACKLOG.md`](docs/BACKLOG.md) com status B2 ✅
 
 **Validação:** zero `[PREENCHER]` críticos no README.
+
+**Evidência:** `docs/grill-logs/validation-2026-07-09-trilha-dia-1.md`
 
 **Prompt Cursor**
 ```text
