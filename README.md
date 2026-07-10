@@ -29,7 +29,7 @@ Projeto com foco em monitoramento e controle de ambiente escolar, com potencial 
 | Item | Valor |
 |------|--------|
 | **Problema que resolve** | Centralizar dados escolares (escolas, turmas, alunos, câmeras) com acesso por perfil. |
-| **Demo / deploy** | [PREENCHER_URL_SWAGGER_OU_APP_OU_"em breve"] |
+| **Demo / deploy** | Demo: em breve — ver Dia 8 da [`TRILHA-DIA-A-DIA.md`](TRILHA-DIA-A-DIA.md). Local: [Swagger UI](http://localhost:8080/swagger-ui.html) |
 | **Repositório** | `https://github.com/HelderAbud/Camera-Escolar` |
 
 ---
@@ -74,9 +74,11 @@ Diagrama ou print da arquitetura (opcional): coloque em `docs/` e link aqui.
 
 ### Matriz de permissões (resumo)
 
-| Endpoint | ADMIN | COORDENAÇÃO | PROFESSOR |
+Perfis no JWT: `ADMIN`, `COORDENACAO`, `PROFESSOR` (enum `PerfilUsuario`; no texto pode aparecer “COORDENAÇÃO”).
+
+| Endpoint | ADMIN | COORDENACAO | PROFESSOR |
 |----------|-------|-------------|-----------|
-| GET (leitura geral) | ✓ | ✓ | ✓ |
+| GET (leitura geral, autenticado) | ✓ | ✓ | ✓ |
 | POST /api/escolas | ✓ | — | — |
 | POST /api/cameras | ✓ | ✓ | — |
 | DELETE /api/cameras | ✓ | — | — |
@@ -139,8 +141,9 @@ O seed admin fica desabilitado por padrão. Habilite apenas em ambiente local/de
 
 ## Documentação adicional
 
-- [docs/BACKLOG.md](docs/BACKLOG.md)
+- [docs/BACKLOG.md](docs/BACKLOG.md) — marcos **B0–B2 concluídos** ✅
 - [docs/WORKFLOW.md](docs/WORKFLOW.md)
+- [TRILHA-DIA-A-DIA.md](TRILHA-DIA-A-DIA.md) — trilha portfólio (Helder + skills-pessoal)
 
 ---
 
