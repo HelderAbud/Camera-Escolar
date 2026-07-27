@@ -14,3 +14,9 @@ Desktop.ini
 .env
 *.local
 
+# Screenshot capture helpers (local)
+docs/screenshots/_pw/node_modules/
+docs/screenshots/_pw/*.log
+docs/screenshots/_pw/tmp/
+docs/screenshots/_pw/screenshot.properties
+
