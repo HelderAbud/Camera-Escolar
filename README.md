@@ -142,16 +142,19 @@ O seed admin fica desabilitado por padrão. Habilite apenas em ambiente local/de
 ## Documentação adicional
 
 - [docs/BACKLOG.md](docs/BACKLOG.md) — marcos **B0–B2 concluídos** ✅
+- [docs/portfolio/etapas.md](docs/portfolio/etapas.md) — narrativa de etapas (portfólio / entrevista)
 - [docs/WORKFLOW.md](docs/WORKFLOW.md)
 - [TRILHA-DIA-A-DIA.md](TRILHA-DIA-A-DIA.md) — trilha portfólio (Helder + skills-pessoal)
 
 ---
 
-## Screenshots (opcional)
+## Screenshots
 
-| Tela / Swagger | Ficheiro sugerido |
-|----------------|-------------------|
-| Swagger UI | `docs/screenshots/swagger.png` |
+| Tela | Ficheiro |
+|------|----------|
+| Swagger UI | ![Swagger UI](docs/screenshots/swagger.png) |
+| GET `/api/eventos` com filtros | ![Eventos filtrados](docs/screenshots/eventos-filtro.png) |
+| Matriz de permissões | ![Matriz de permissões](docs/screenshots/permissions-matrix.png) |
 
 ---
 

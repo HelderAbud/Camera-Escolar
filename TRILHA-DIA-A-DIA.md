@@ -87,11 +87,13 @@ não alterar regras de segurança sem listar impacto.
 
 ### Dia 2 — Screenshots (3 mínimo)
 
-- [ ] `docs/screenshots/swagger.png` — Swagger UI
-- [ ] `docs/screenshots/eventos-filtro.png` — GET `/api/eventos` com filtros
-- [ ] `docs/screenshots/permissions-matrix.png` — tabela do README ou doc
+- [x] `docs/screenshots/swagger.png` — Swagger UI
+- [x] `docs/screenshots/eventos-filtro.png` — GET `/api/eventos` com filtros
+- [x] `docs/screenshots/permissions-matrix.png` — tabela do README ou doc
 
 **Validação:** README secção Screenshots preenchida.
+
+**Evidência:** `docs/grill-logs/validation-2026-07-27-trilha-dia-2.md`
 
 ---
 
@@ -106,6 +108,13 @@ não alterar regras de segurança sem listar impacto.
 6. CI + deploy *(atualizar dia 8)*  
 
 Tags por etapa: `JWT`, `Flyway`, `REST`, `Observability`.
+
+- [x] Criar `docs/portfolio/etapas.md` com as 6 etapas e estados (B0–P1 feitos; CI/deploy pendente)
+- [x] Linkar no README (Documentação adicional)
+
+**Validação:** ficheiro existe e resume a ordem lógica do MVP.
+
+**Evidência:** `docs/grill-logs/validation-2026-07-27-trilha-dia-3.md`
 
 ---
 
