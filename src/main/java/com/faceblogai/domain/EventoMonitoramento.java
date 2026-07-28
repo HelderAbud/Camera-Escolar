@@ -1,6 +1,8 @@
 package com.faceblogai.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 
@@ -25,11 +27,11 @@ public class EventoMonitoramento {
     private Aluno aluno;
 
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(name = "tipo_evento", nullable = false, length = 80)
     private TipoEvento tipoEvento;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String detalhes;
 
     @Column(name = "criado_em", nullable = false, updatable = false)

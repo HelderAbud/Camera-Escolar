@@ -120,11 +120,13 @@ Tags por etapa: `JWT`, `Flyway`, `REST`, `Observability`.
 
 ### Dia 4 — Diagrama domínio + LICENSE
 
-- [ ] Mermaid: Escola → Turma → Aluno; Camera → Evento
-- [ ] Adicionar `LICENSE` (MIT recomendado)
-- [ ] Atualizar bloco LinkedIn no README (B2 feito)
+- [x] Mermaid: Escola → Turma → Aluno; Camera → Evento
+- [x] Adicionar `LICENSE` (MIT recomendado)
+- [x] Atualizar bloco LinkedIn no README (B2 feito)
 
 **DoD Fase A:** README + etapas + 3 screenshots + LICENSE.
+
+**Evidência:** `docs/grill-logs/validation-2026-07-27-trilha-dia-4.md`
 
 ---
 
