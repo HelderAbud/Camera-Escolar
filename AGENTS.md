@@ -17,8 +17,10 @@ Base operacional alinhada ao Helder Method v1.2 e ao Superpowers Cursor Playbook
 | Subir MySQL local | `docker compose up -d` |
 | Rodar testes | `mvn clean test` |
 | Subir API | `mvn spring-boot:run` |
-| Swagger local | `http://localhost:8080/swagger-ui.html` |
-| Health local | `http://localhost:8080/health` |
+| Swagger local | `http://localhost:8082/swagger-ui.html` |
+| Health local | `http://localhost:8082/health` |
+
+Portas canônicas (portfólio): API **8082**, MySQL host **3307**. Ver `../Agentes/PORTFOLIO-PORTS.md`.
 
 Antes de considerar o servico pronto, valide pelo menos testes ou smoke check coerente com a mudanca.
 

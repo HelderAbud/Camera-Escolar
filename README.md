@@ -16,11 +16,12 @@ Projeto com foco em monitoramento e controle de ambiente escolar, com potencial 
 
 **Tecnologias:** Java 21, Spring Boot 3, Spring Web, Spring Security, Spring Data JPA, Flyway (migrações de banco), JWT (autenticação), Springdoc OpenAPI (Swagger UI)  
 
-**Destaques:**
+**Destaques (MVP B0–B2 + P1):**
 
-- Aplicação voltada para cenário real
-- Base para evolução com automações e inteligência
-- API REST com autenticação por perfis (ex.: ADMIN, COORDENAÇÃO, PROFESSOR)
+- API REST com JWT e perfis ADMIN / COORDENAÇÃO / PROFESSOR
+- CRUD de escolas, turmas, alunos e câmeras + eventos de monitoramento com filtros paginados
+- Flyway + MySQL, Problem Details (RFC 7807), logs JSON; licença MIT
+- Diagrama de domínio: [docs/portfolio/dominio.md](docs/portfolio/dominio.md)
 
 ---
 
@@ -29,7 +30,7 @@ Projeto com foco em monitoramento e controle de ambiente escolar, com potencial 
 | Item | Valor |
 |------|--------|
 | **Problema que resolve** | Centralizar dados escolares (escolas, turmas, alunos, câmeras) com acesso por perfil. |
-| **Demo / deploy** | Demo: em breve — ver Dia 8 da [`TRILHA-DIA-A-DIA.md`](TRILHA-DIA-A-DIA.md). Local: [Swagger UI](http://localhost:8080/swagger-ui.html) |
+| **Demo / deploy** | Demo: em breve — ver Dia 8 da [`TRILHA-DIA-A-DIA.md`](TRILHA-DIA-A-DIA.md). Local: [Swagger UI](http://localhost:8082/swagger-ui.html) |
 | **Repositório** | `https://github.com/HelderAbud/Camera-Escolar` |
 
 ---
@@ -123,9 +124,10 @@ export DB_PASSWORD=[SENHA_MYSQL_LOCAL]
 mvn spring-boot:run
 ```
 
-- **API:** http://localhost:8080  
-- **Swagger UI:** http://localhost:8080/swagger-ui.html  
-- **Health:** http://localhost:8080/health  
+- **API:** http://localhost:8082
+- **Swagger UI:** http://localhost:8082/swagger-ui.html
+- **Health:** http://localhost:8082/health
+- **MySQL (host):** `3307` (matriz portfólio; ver `../Agentes/PORTFOLIO-PORTS.md`)
 
 ### Login de desenvolvimento
 
@@ -143,8 +145,10 @@ O seed admin fica desabilitado por padrão. Habilite apenas em ambiente local/de
 
 - [docs/BACKLOG.md](docs/BACKLOG.md) — marcos **B0–B2 concluídos** ✅
 - [docs/portfolio/etapas.md](docs/portfolio/etapas.md) — narrativa de etapas (portfólio / entrevista)
+- [docs/portfolio/dominio.md](docs/portfolio/dominio.md) — diagrama Mermaid do domínio
 - [docs/WORKFLOW.md](docs/WORKFLOW.md)
 - [TRILHA-DIA-A-DIA.md](TRILHA-DIA-A-DIA.md) — trilha portfólio (Helder + skills-pessoal)
+- [LICENSE](LICENSE) — MIT
 
 ---
 

@@ -14,7 +14,7 @@ Sempre em incrementos pequenos, testáveis.
       - `mvn clean test` executado com sucesso.
 - [x] **B0-02** Configurar banco (H2 dev) + JPA  
       - Optamos por ir direto para **MySQL + JPA**, seguindo o padrão dos outros projetos.  
-      - `application.properties` configurado com datasource `jdbc:mysql://localhost:3306/facelogai` e usuário `facelogai`.  
+      - `application.properties` configurado com datasource `jdbc:mysql://localhost:3307/facelogai` e usuário `facelogai`.  
       - Entidade `Usuario` mapeada para a tabela `usuario`.
 - [x] **B0-03** Flyway habilitado + primeira migration  
       - Flyway habilitado em `application.properties`.  

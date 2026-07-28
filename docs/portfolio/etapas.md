@@ -70,4 +70,5 @@ GitHub Actions (`mvn test`), badge no README e demo pública (Render/Railway) �
 | README sem placeholders críticos | Feito (Dia 1) |
 | 3 screenshots | Feito (Dia 2) |
 | Este `etapas.md` | Feito (Dia 3) |
-| LICENSE MIT | Feito (já no repo; Dia 4 confirma diagrama) |
+| LICENSE MIT | Feito (Dia 4) |
+| Diagrama domínio Mermaid | Feito (Dia 4 — [`dominio.md`](dominio.md)) |

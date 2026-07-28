@@ -8,7 +8,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Defina MYSQL_PASSWORD no .env}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Defina MYSQL_ROOT_PASSWORD no .env}
     ports:
-      - "3306:3306"
+      # Host 3307 — matriz portfólio (evita colisão com Tshirt-Store em 3308)
+      - "3307:3306"
     volumes:
       - facelogai_data:/var/lib/mysql
     healthcheck:

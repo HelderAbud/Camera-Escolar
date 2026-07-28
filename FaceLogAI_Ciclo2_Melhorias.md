@@ -134,9 +134,9 @@ mvn spring-boot:run
 ```
 
 ### 4. Acessar
-- API: http://localhost:8080
-- Swagger UI: http://localhost:8080/swagger-ui.html
-- Health: http://localhost:8080/health
+- API: http://localhost:8082
+- Swagger UI: http://localhost:8082/swagger-ui.html
+- Health: http://localhost:8082/health
 
 ### Login inicial (seed de desenvolvimento)
 ```json
