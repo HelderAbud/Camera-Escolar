@@ -137,19 +137,19 @@ Tags por etapa: `JWT`, `Flyway`, `REST`, `Observability`.
 | Trilha | Normal |
 
 **Tarefas**
-- [ ] Criar `.github/workflows/ci.yml`: checkout → Java 21 → `mvn -B test`
-- [ ] Rodar local: `mvn clean test` antes de push
+- [x] Criar `.github/workflows/ci.yml`: checkout → Java 21 → `mvn -B test`
+- [x] Rodar local: `mvn clean test` antes de push
 - [ ] Plano: `.cursor/plans/plan-YYYY-MM-DD-ci-facelogai.md`
 
-**Validação:** workflow verde no GitHub.
+**Validação:** workflow verde no GitHub após o primeiro push da branch (HITL).
 
 ---
 
 ### Dia 6 — Badge + README
 
-- [ ] Badge CI no README
-- [ ] Documentar comando teste em README (já parcialmente existe)
-- [ ] `docs/grill-logs/validation-YYYY-MM-DD-ci.md`
+- [x] Badge CI no README
+- [x] Documentar comando teste em README (já parcialmente existe)
+- [x] `docs/grill-logs/validation-2026-08-21-review-fatias.md`
 
 ---
 

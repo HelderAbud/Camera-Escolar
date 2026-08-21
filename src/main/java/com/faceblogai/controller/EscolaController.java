@@ -44,6 +44,7 @@ public class EscolaController {
                 .body(EscolaResponse.from(escola));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PutMapping("/{id}")
     public ResponseEntity<EscolaResponse> atualizar(
             @PathVariable Long id, @Valid @RequestBody EscolaRequest request) {

@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = "classpath:sql/evento-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "classpath:sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class EventoMonitoramentoControllerIT {
+class EventoMonitoramentoControllerTest {
 
     @Autowired MockMvc mockMvc;
     @Autowired JwtService jwtService;
@@ -127,4 +127,3 @@ class EventoMonitoramentoControllerIT {
                 .andExpect(jsonPath("$.detail").exists());
     }
 }
-

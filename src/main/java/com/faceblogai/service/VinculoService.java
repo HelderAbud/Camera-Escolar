@@ -36,9 +36,13 @@ public class VinculoService {
         Aluno aluno = alunoRepository.findById(alunoId)
                 .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
 
-        return turmaAlunoRepository
-                .findByTurmaAndAluno(turma, aluno)
-                .orElseGet(() -> turmaAlunoRepository.save(new TurmaAluno(turma, aluno)));
+        TurmaAluno vinculo =
+                turmaAlunoRepository
+                        .findByTurmaAndAluno(turma, aluno)
+                        .orElseGet(() -> turmaAlunoRepository.save(new TurmaAluno(turma, aluno)));
+        vinculo.getTurma().getId();
+        vinculo.getAluno().getNome();
+        return vinculo;
     }
 
     @Transactional
@@ -53,10 +57,17 @@ public class VinculoService {
                 .ifPresent(turmaAlunoRepository::delete);
     }
 
+    @Transactional(readOnly = true)
     public List<TurmaAluno> listarAlunosDaTurma(Long turmaId) {
         Turma turma = turmaRepository.findById(turmaId)
                 .orElseThrow(() -> new IllegalArgumentException("Turma não encontrada"));
-        return turmaAlunoRepository.findByTurma(turma);
+        List<TurmaAluno> vinculos = turmaAlunoRepository.findByTurma(turma);
+        vinculos.forEach(
+                vinculo -> {
+                    vinculo.getTurma().getId();
+                    vinculo.getAluno().getNome();
+                });
+        return vinculos;
     }
 
     @Transactional
@@ -66,9 +77,13 @@ public class VinculoService {
         Camera camera = cameraRepository.findById(cameraId)
                 .orElseThrow(() -> new IllegalArgumentException("Câmera não encontrada"));
 
-        return cameraTurmaRepository
-                .findByCameraAndTurma(camera, turma)
-                .orElseGet(() -> cameraTurmaRepository.save(new CameraTurma(camera, turma)));
+        CameraTurma vinculo =
+                cameraTurmaRepository
+                        .findByCameraAndTurma(camera, turma)
+                        .orElseGet(() -> cameraTurmaRepository.save(new CameraTurma(camera, turma)));
+        vinculo.getTurma().getId();
+        vinculo.getCamera().getNome();
+        return vinculo;
     }
 
     @Transactional
@@ -83,9 +98,16 @@ public class VinculoService {
                 .ifPresent(cameraTurmaRepository::delete);
     }
 
+    @Transactional(readOnly = true)
     public List<CameraTurma> listarCamerasDaTurma(Long turmaId) {
         Turma turma = turmaRepository.findById(turmaId)
                 .orElseThrow(() -> new IllegalArgumentException("Turma não encontrada"));
-        return cameraTurmaRepository.findByTurma(turma);
+        List<CameraTurma> vinculos = cameraTurmaRepository.findByTurma(turma);
+        vinculos.forEach(
+                vinculo -> {
+                    vinculo.getTurma().getId();
+                    vinculo.getCamera().getNome();
+                });
+        return vinculos;
     }
 }
