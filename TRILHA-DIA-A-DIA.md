@@ -157,10 +157,14 @@ Tags por etapa: `JWT`, `Flyway`, `REST`, `Observability`.
 
 ### Dia 7 — Plano deploy 📋
 
-- [ ] Escolher Render ou Railway
-- [ ] MySQL managed ou Postgres (migrar só se plano aprovar — senão MySQL)
-- [ ] **HITL:** seed admin **OFF** em prod
-- [ ] Plano rollback: variáveis env documentadas
+- [x] Escolher Render ou Railway → **Railway** (MySQL nativo; ver plano)
+- [x] MySQL managed ou Postgres (migrar só se plano aprovar — senão MySQL) → **MySQL 8**, sem migrar Flyway
+- [x] **HITL:** seed admin **OFF** em prod (`FACELOGAI_SEED_ADMIN_ENABLED=false`)
+- [x] Plano rollback: variáveis env documentadas
+
+**Plano:** [`.cursor/plans/plan-2026-08-21-facelogai-dia-7-deploy.md`](.cursor/plans/plan-2026-08-21-facelogai-dia-7-deploy.md) · **Ops:** [`docs/deploy.md`](docs/deploy.md)
+
+**Evidência:** `docs/grill-logs/validation-2026-08-21-trilha-dia-7.md`
 
 ---
 
