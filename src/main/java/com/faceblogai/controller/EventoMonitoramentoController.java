@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -23,6 +24,7 @@ public class EventoMonitoramentoController {
         this.eventoService = eventoService;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PostMapping
     public ResponseEntity<EventoResponse> registrar(@Valid @RequestBody EventoRequest request) {
         var evento = eventoService.registrar(

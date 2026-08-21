@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class AuthControllerIT {
+class AuthControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -44,4 +44,3 @@ class AuthControllerIT {
                 .andExpect(jsonPath("$.role").value("ADMIN"));
     }
 }
-

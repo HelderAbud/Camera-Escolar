@@ -1,8 +1,10 @@
-# FaceLogAI — Sistema de apoio a monitoramento escolar
+# FaceLogAI — Sistema de apoio a contexto escolar
 
-API backend para **gestão de contexto escolar** ligada a câmeras e controle de acesso a dados (escolas, turmas, alunos, câmeras), com autenticação por perfil. Posicionamento: **segurança e organização institucional**, com base para evolução (eventos, presença, visão computacional — ver roadmap).
+API backend para **gestão de contexto escolar** (escolas, turmas, alunos, câmeras e **log de eventos**), com autenticação JWT e acesso por perfil. O MVP **não** faz stream de câmera, biometria nem reconhecimento facial: valores como `ROSTO_RECONHECIDO` no enum `TipoEvento` são só tipos de registro no log, prontos para uma evolução futura.
 
 **Repositório público:** https://github.com/HelderAbud/Camera-Escolar
+
+[![CI](https://github.com/HelderAbud/Camera-Escolar/actions/workflows/ci.yml/badge.svg)](https://github.com/HelderAbud/Camera-Escolar/actions/workflows/ci.yml)
 
 ---
 
@@ -10,17 +12,17 @@ API backend para **gestão de contexto escolar** ligada a câmeras e controle de
 
 **GitHub:** https://github.com/HelderAbud/Camera-Escolar
 
-**Sistema de Monitoramento Escolar (FaceLogAI)**
+**Sistema de contexto escolar (FaceLogAI)**
 
-Projeto com foco em monitoramento e controle de ambiente escolar, com potencial para aplicação em segurança e gestão de presença.
+API para organizar escolas, turmas, alunos, câmeras e eventos de monitoramento **como registros**, com JWT e perfis. Sem visão computacional no código atual.
 
 **Tecnologias:** Java 21, Spring Boot 3, Spring Web, Spring Security, Spring Data JPA, Flyway (migrações de banco), JWT (autenticação), Springdoc OpenAPI (Swagger UI)  
 
 **Destaques (MVP B0–B2 + P1):**
 
-- API REST com JWT e perfis ADMIN / COORDENAÇÃO / PROFESSOR
+- API REST com JWT e perfis ADMIN / COORDENAÇÃO / PROFESSOR (RBAC em `@PreAuthorize`)
 - CRUD de escolas, turmas, alunos e câmeras + eventos de monitoramento com filtros paginados
-- Flyway + MySQL, Problem Details (RFC 7807), logs JSON; licença MIT
+- Flyway + MySQL, Problem Details (RFC 7807), logs JSON, CI GitHub Actions; licença MIT
 - Diagrama de domínio: [docs/portfolio/dominio.md](docs/portfolio/dominio.md)
 
 ---
@@ -52,40 +54,49 @@ Projeto com foco em monitoramento e controle de ambiente escolar, com potencial 
 
 ## Arquitetura
 
-Padrão em camadas: **Controller → Service → Repository**, entidades em `model/`, configuração em `config/`.
+Padrão em camadas: **Controller → Service → Repository**, entidades JPA em `domain/`, contratos em `dto/`, erros em `api/`, configuração em `config/`.
 
 ```text
 src/main/java/com/faceblogai/
 ├── controller/
 ├── service/
-├── model/
+├── domain/
+├── dto/
 ├── repository/
+├── api/
 └── config/
 ```
-
-Diagrama ou print da arquitetura (opcional): coloque em `docs/` e link aqui.
 
 ---
 
 ## Funcionalidades (estado atual)
 
-- Autenticação JWT e perfis (ex.: ADMIN, COORDENAÇÃO, PROFESSOR) com matriz de permissões documentada abaixo.
-- Endpoints de domínio escolar: escolas, câmeras, turmas, alunos (conforme implementado no backend).
+- Autenticação JWT e perfis (ADMIN, COORDENACAO, PROFESSOR) com matriz de permissões abaixo.
+- Endpoints de domínio escolar: escolas, câmeras, turmas, alunos, vínculos e eventos (log).
 - Documentação interativa: Swagger UI.
 
-### Matriz de permissões (resumo)
+### Matriz de permissões (contrato)
 
-Perfis no JWT: `ADMIN`, `COORDENACAO`, `PROFESSOR` (enum `PerfilUsuario`; no texto pode aparecer “COORDENAÇÃO”).
+Perfis no JWT: `ADMIN`, `COORDENACAO`, `PROFESSOR` (enum `PerfilUsuario`).
+
+Leitura (`GET`) exige JWT; os três perfis podem ler. Writes usam `@PreAuthorize`.
 
 | Endpoint | ADMIN | COORDENACAO | PROFESSOR |
 |----------|-------|-------------|-----------|
-| GET (leitura geral, autenticado) | ✓ | ✓ | ✓ |
+| GET (leitura autenticada) | ✓ | ✓ | ✓ |
 | POST /api/escolas | ✓ | — | — |
-| POST /api/cameras | ✓ | ✓ | — |
-| DELETE /api/cameras | ✓ | — | — |
-| DELETE /api/alunos | ✓ | ✓ | — |
-| POST /api/turmas | ✓ | ✓ | — |
-| DELETE /api/turmas | ✓ | — | — |
+| PUT /api/escolas/{id} | ✓ | ✓ | — |
+| DELETE /api/escolas/{id} | ✓ | — | — |
+| POST / PUT /api/cameras | ✓ | ✓ | — |
+| DELETE /api/cameras/{id} | ✓ | — | — |
+| POST / PUT /api/alunos | ✓ | ✓ | — |
+| DELETE /api/alunos/{id} | ✓ | ✓ | — |
+| POST / PUT /api/turmas | ✓ | ✓ | — |
+| DELETE /api/turmas/{id} | ✓ | — | — |
+| POST / DELETE vínculos (`/api/turmas/{id}/alunos`, `/cameras`) | ✓ | ✓ | — |
+| POST /api/eventos | ✓ | ✓ | — |
+
+PROFESSOR não altera cadastro nem registra eventos; só consulta.
 
 ---
 
@@ -122,6 +133,12 @@ export DB_PASSWORD=[SENHA_MYSQL_LOCAL]
 
 ```bash
 mvn spring-boot:run
+```
+
+Testes (H2 em memória; inclui os antigos `*IT`, agora `*Test`):
+
+```bash
+mvn clean test
 ```
 
 - **API:** http://localhost:8082
@@ -166,7 +183,7 @@ O seed admin fica desabilitado por padrão. Habilite apenas em ambiente local/de
 
 - [ ] Notificações de eventos
 - [ ] Registo de presença integrado ao fluxo escolar
-- [ ] Integração com IA / visão computacional (quando for objetivo do projeto)
+- [ ] Integração com IA / visão computacional (**não implementado**; enum `TipoEvento` só reserva nomes de log)
 - [ ] Deploy (ex.: Render, Fly.io) — adicionar URL aqui e no topo quando existir
 
 ---

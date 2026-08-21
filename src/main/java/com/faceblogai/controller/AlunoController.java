@@ -36,6 +36,7 @@ public class AlunoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PostMapping
     public ResponseEntity<AlunoResponse> criar(@Valid @RequestBody AlunoRequest request) {
         var aluno = alunoService.criar(request.nome(), request.matricula());
@@ -43,6 +44,7 @@ public class AlunoController {
                 .body(AlunoResponse.from(aluno));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PutMapping("/{id}")
     public ResponseEntity<AlunoResponse> atualizar(
             @PathVariable Long id, @Valid @RequestBody AlunoUpdateRequest request) {

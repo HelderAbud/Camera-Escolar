@@ -21,14 +21,21 @@ public class TurmaService {
         this.escolaRepository = escolaRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<Turma> listarPorEscola(Long escolaId) {
         Escola escola = escolaRepository.findById(escolaId)
                 .orElseThrow(() -> new IllegalArgumentException("Escola não encontrada"));
-        return turmaRepository.findByEscola(escola);
+        List<Turma> turmas = turmaRepository.findByEscola(escola);
+        turmas.forEach(turma -> turma.getEscola().getNome());
+        return turmas;
     }
 
+    @Transactional(readOnly = true)
     public Optional<Turma> buscarPorId(Long id) {
-        return turmaRepository.findById(id);
+        return turmaRepository.findById(id).map(turma -> {
+            turma.getEscola().getNome();
+            return turma;
+        });
     }
 
     @Transactional

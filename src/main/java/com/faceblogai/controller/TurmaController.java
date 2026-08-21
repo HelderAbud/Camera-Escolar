@@ -1,8 +1,8 @@
 package com.faceblogai.controller;
 
-import com.faceblogai.domain.CameraTurma;
-import com.faceblogai.domain.Turma;
-import com.faceblogai.domain.TurmaAluno;
+import com.faceblogai.dto.CameraTurmaResponse;
+import com.faceblogai.dto.TurmaAlunoResponse;
+import com.faceblogai.dto.TurmaResponse;
 import com.faceblogai.service.TurmaService;
 import com.faceblogai.service.VinculoService;
 import jakarta.validation.Valid;
@@ -28,30 +28,34 @@ public class TurmaController {
     }
 
     @GetMapping("/escola/{escolaId}")
-    public List<Turma> listarPorEscola(@PathVariable Long escolaId) {
-        return turmaService.listarPorEscola(escolaId);
+    public List<TurmaResponse> listarPorEscola(@PathVariable Long escolaId) {
+        return turmaService.listarPorEscola(escolaId).stream().map(TurmaResponse::from).toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Turma> buscarPorId(@PathVariable Long id) {
-        return turmaService.buscarPorId(id)
+    public ResponseEntity<TurmaResponse> buscarPorId(@PathVariable Long id) {
+        return turmaService
+                .buscarPorId(id)
+                .map(TurmaResponse::from)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PostMapping
-    public ResponseEntity<Turma> criar(@Valid @RequestBody TurmaRequest request) {
-        Turma turma = turmaService.criar(request.escolaId(), request.nome(), request.serie());
+    public ResponseEntity<TurmaResponse> criar(@Valid @RequestBody TurmaRequest request) {
+        var turma = turmaService.criar(request.escolaId(), request.nome(), request.serie());
         return ResponseEntity.created(URI.create("/api/turmas/" + turma.getId()))
-                .body(turma);
+                .body(TurmaResponse.from(turma));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PutMapping("/{id}")
-    public ResponseEntity<Turma> atualizar(
+    public ResponseEntity<TurmaResponse> atualizar(
             @PathVariable Long id, @Valid @RequestBody TurmaUpdateRequest request) {
-        return turmaService.atualizar(id, request.nome(), request.serie())
+        return turmaService
+                .atualizar(id, request.nome(), request.serie())
+                .map(TurmaResponse::from)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -63,14 +67,14 @@ public class TurmaController {
         return ResponseEntity.noContent().build();
     }
 
-    // Vínculo aluno-turma
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PostMapping("/{turmaId}/alunos/{alunoId}")
-    public TurmaAluno vincularAluno(
+    public TurmaAlunoResponse vincularAluno(
             @PathVariable Long turmaId, @PathVariable Long alunoId) {
-        return vinculoService.vincularAlunoEmTurma(turmaId, alunoId);
+        return TurmaAlunoResponse.from(vinculoService.vincularAlunoEmTurma(turmaId, alunoId));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @DeleteMapping("/{turmaId}/alunos/{alunoId}")
     public ResponseEntity<Void> desvincularAluno(
             @PathVariable Long turmaId, @PathVariable Long alunoId) {
@@ -79,18 +83,20 @@ public class TurmaController {
     }
 
     @GetMapping("/{turmaId}/alunos")
-    public List<TurmaAluno> listarAlunosDaTurma(@PathVariable Long turmaId) {
-        return vinculoService.listarAlunosDaTurma(turmaId);
+    public List<TurmaAlunoResponse> listarAlunosDaTurma(@PathVariable Long turmaId) {
+        return vinculoService.listarAlunosDaTurma(turmaId).stream()
+                .map(TurmaAlunoResponse::from)
+                .toList();
     }
 
-    // Vínculo camera-turma
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @PostMapping("/{turmaId}/cameras/{cameraId}")
-    public CameraTurma vincularCamera(
+    public CameraTurmaResponse vincularCamera(
             @PathVariable Long turmaId, @PathVariable Long cameraId) {
-        return vinculoService.vincularCameraEmTurma(turmaId, cameraId);
+        return CameraTurmaResponse.from(vinculoService.vincularCameraEmTurma(turmaId, cameraId));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'COORDENACAO')")
     @DeleteMapping("/{turmaId}/cameras/{cameraId}")
     public ResponseEntity<Void> desvincularCamera(
             @PathVariable Long turmaId, @PathVariable Long cameraId) {
@@ -99,16 +105,14 @@ public class TurmaController {
     }
 
     @GetMapping("/{turmaId}/cameras")
-    public List<CameraTurma> listarCamerasDaTurma(@PathVariable Long turmaId) {
-        return vinculoService.listarCamerasDaTurma(turmaId);
+    public List<CameraTurmaResponse> listarCamerasDaTurma(@PathVariable Long turmaId) {
+        return vinculoService.listarCamerasDaTurma(turmaId).stream()
+                .map(CameraTurmaResponse::from)
+                .toList();
     }
 
     public record TurmaRequest(
-            @NotNull Long escolaId,
-            @NotBlank String nome,
-            String serie) {}
+            @NotNull Long escolaId, @NotBlank String nome, String serie) {}
 
-    public record TurmaUpdateRequest(
-            @NotBlank String nome,
-            String serie) {}
+    public record TurmaUpdateRequest(@NotBlank String nome, String serie) {}
 }

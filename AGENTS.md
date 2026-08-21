@@ -4,7 +4,7 @@ Base operacional alinhada ao Helder Method v1.2 e ao Superpowers Cursor Playbook
 
 ## Visao Geral
 
-- Produto: FaceLogAI, API backend para apoio a monitoramento escolar e organizacao de dados de escolas, turmas, alunos, cameras e eventos.
+- Produto: FaceLogAI, API backend de contexto escolar (escolas, turmas, alunos, cameras e log de eventos), sem reconhecimento facial no MVP.
 - Objetivo atual: manter um MVP backend profissional para portfolio, com autenticacao por perfis e base para evoluir monitoramento, eventos e presenca.
 - Stack: Java 21, Spring Boot 3.2, Maven, Spring Web, Spring Security, JWT, Spring Data JPA, Flyway, MySQL em desenvolvimento, H2 em testes e springdoc OpenAPI.
 - Arquitetura atual: camadas `controller`, `service`, `repository`, `domain`, `dto`, `config` e `api`.

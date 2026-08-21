@@ -9,7 +9,7 @@ Narrativa curta para **portfólio / entrevista**: o que foi construído e em que
 | 3 | CRUD escolas, turmas, alunos, câmeras | `REST` | Feito (B2) |
 | 4 | Eventos de monitoramento + filtros paginados | `REST` | Feito (B2) |
 | 5 | Problem Details (RFC 7807) + logs JSON | `Observability` | Feito (P1) |
-| 6 | CI + deploy | — | Pendente (Dias 5–8 da trilha) |
+| 6 | CI + deploy | — | CI no repositório (Actions); deploy público pendente (Dia 8) |
 
 ---
 
@@ -59,7 +59,7 @@ Erros via `ApiExceptionHandler` (`ProblemDetail`). Logs estruturados JSON (`logb
 
 ## 6. CI + deploy
 
-GitHub Actions (`mvn test`), badge no README e demo pública (Render/Railway) — **ainda não feito**. Seguir Dias 5–8 / 8+ em [`TRILHA-DIA-A-DIA.md`](../../TRILHA-DIA-A-DIA.md).
+GitHub Actions (`.github/workflows/ci.yml`, `mvn -B test`) e badge no README — **feito neste ciclo**. Demo pública (Render/Railway) — **ainda não**. Seguir Dias 8+ em [`TRILHA-DIA-A-DIA.md`](../../TRILHA-DIA-A-DIA.md).
 
 ---
 

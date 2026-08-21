@@ -15,7 +15,7 @@
     <artifactId>facelogai-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>facelogai-backend</name>
-    <description>FaceLogAI - Monitoramento de câmeras para uso escolar</description>
+    <description>API REST de contexto escolar: escolas, turmas, alunos, câmeras e log de eventos (sem stream de vídeo nem reconhecimento facial no MVP)</description>
     <packaging>jar</packaging>
 
     <properties>
