@@ -160,6 +160,7 @@ O seed admin fica desabilitado por padrão. Habilite apenas em ambiente local/de
 
 ## Documentação adicional
 
+- [docs/deploy.md](docs/deploy.md) — plano de deploy (Railway + MySQL; seed OFF; rollback)
 - [docs/BACKLOG.md](docs/BACKLOG.md) — marcos **B0–B2 concluídos** ✅
 - [docs/portfolio/etapas.md](docs/portfolio/etapas.md) — narrativa de etapas (portfólio / entrevista)
 - [docs/portfolio/dominio.md](docs/portfolio/dominio.md) — diagrama Mermaid do domínio
