@@ -170,9 +170,12 @@ Tags por etapa: `JWT`, `Flyway`, `REST`, `Observability`.
 
 ### Dia 8 — Deploy API
 
-- [ ] Deploy container ou jar
+- [x] Dockerfile multi-stage (Java 21) e `server.port=${PORT:8082}`
+- [ ] Conta Railway + MySQL + variáveis no painel (HITL)
 - [ ] Health `/health` público
 - [ ] Swagger URL no README
+
+**Evidência (imagem):** `docs/grill-logs/validation-2026-10-23-trilha-dia-8.md`
 
 ---
 

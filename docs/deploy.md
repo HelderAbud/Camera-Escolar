@@ -1,7 +1,8 @@
 # Deploy FaceLogAI (portfólio)
 
 Decisões: [`.cursor/plans/plan-2026-08-21-facelogai-dia-7-deploy.md`](../.cursor/plans/plan-2026-08-21-facelogai-dia-7-deploy.md).  
-**Estado:** plano (Dia 7). URL pública = Dia 8.
+Preparação da imagem: [`.cursor/plans/plan-2026-10-23-facelogai-dia-8-deploy.md`](../.cursor/plans/plan-2026-10-23-facelogai-dia-8-deploy.md).  
+**Estado:** `Dockerfile` e `PORT` no repositório. URL pública ainda não — conta Railway e secrets são HITL.
 
 ## Alvo
 
@@ -21,7 +22,28 @@ FACELOGAI_SEED_ADMIN_ENABLED=false
 
 Não definir `FACELOGAI_SEED_ADMIN_PASSWORD` em produção.
 
-No Dia 8 a API deve escutar a porta que o PaaS injeta (`PORT`).
+A API escuta `PORT` (padrão local `8082`): `server.port=${PORT:8082}`.
+
+## Imagem
+
+`Dockerfile` multi-stage (Java 21). Não copia `.env`.
+
+Neste PC (Windows) não há Docker. O build da imagem fica no Railway ou no Ubuntu (WSL):
+
+```bash
+docker build -t facelogai .
+```
+
+Health esperado dentro do contentor: `GET /health`.
+
+## O que o Helder faz no Railway
+
+1. Novo projeto: serviço a partir deste repositório (builder Dockerfile) + plugin MySQL 8.
+2. Colar as variáveis da lista acima no painel. Não definir `FACELOGAI_SEED_ADMIN_PASSWORD`.
+3. Health check: `/health`.
+4. Quando `GET /health` responder na URL pública, atualizar o README com o Swagger (`/swagger-ui.html`).
+
+Railway usa crédito/hobby. Não é R$ 0 permanente. Se o trial acabar, a contingência é um web service com MySQL externo no mesmo JDBC, sem mudar o dialeto.
 
 ## Rollback rápido
 

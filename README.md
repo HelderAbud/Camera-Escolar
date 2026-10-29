@@ -32,7 +32,7 @@ API para organizar escolas, turmas, alunos, câmeras e eventos de monitoramento 
 | Item | Valor |
 |------|--------|
 | **Problema que resolve** | Centralizar dados escolares (escolas, turmas, alunos, câmeras) com acesso por perfil. |
-| **Demo / deploy** | Demo: em breve — ver Dia 8 da [`TRILHA-DIA-A-DIA.md`](TRILHA-DIA-A-DIA.md). Local: [Swagger UI](http://localhost:8082/swagger-ui.html) |
+| **Demo / deploy** | Imagem pronta (`Dockerfile`); URL pública ainda não. Railway usa crédito, não é grátis para sempre. Local: [Swagger UI](http://localhost:8082/swagger-ui.html) |
 | **Repositório** | `https://github.com/HelderAbud/Camera-Escolar` |
 
 ---
@@ -160,7 +160,7 @@ O seed admin fica desabilitado por padrão. Habilite apenas em ambiente local/de
 
 ## Documentação adicional
 
-- [docs/deploy.md](docs/deploy.md) — plano de deploy (Railway + MySQL; seed OFF; rollback)
+- [docs/deploy.md](docs/deploy.md) — imagem Docker, variáveis Railway e rollback (URL pública ainda não)
 - [docs/BACKLOG.md](docs/BACKLOG.md) — marcos **B0–B2 concluídos** ✅
 - [docs/portfolio/etapas.md](docs/portfolio/etapas.md) — narrativa de etapas (portfólio / entrevista)
 - [docs/portfolio/dominio.md](docs/portfolio/dominio.md) — diagrama Mermaid do domínio
@@ -185,7 +185,7 @@ O seed admin fica desabilitado por padrão. Habilite apenas em ambiente local/de
 - [ ] Notificações de eventos
 - [ ] Registo de presença integrado ao fluxo escolar
 - [ ] Integração com IA / visão computacional (**não implementado**; enum `TipoEvento` só reserva nomes de log)
-- [ ] Deploy (ex.: Render, Fly.io) — adicionar URL aqui e no topo quando existir
+- [ ] URL pública no Railway — ver [docs/deploy.md](docs/deploy.md); a imagem já está no repositório
 
 ---
 
